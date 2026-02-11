@@ -105,6 +105,7 @@ class F110Env(gym.Env):
         self.observation_config = self.config["observation_config"]
         self.action_type = CarAction(self.config["control_input"], params=self.params)
         self.dist_to_wall_start_neg_rew = self.config.get("dist_to_wall_start_neg_rew", 0.6)
+        self.velocity_reward_scale = self.config.get("velocity_reward_scale", 1.0)
 
         # radius to consider done
         self.start_thresh = 0.5  # 10cm
@@ -234,6 +235,7 @@ class F110Env(gym.Env):
             "observation_config": {"type": None},
             "reset_config": {"type": None},
             "dist_to_wall_start_neg_rew": 0.6,  # Distance from track edge (m) where negative reward starts
+            "velocity_reward_scale": 1.0,  # Scale factor for velocity reward
         }
 
     def configure(self, config: dict) -> None:
