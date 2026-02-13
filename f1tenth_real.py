@@ -338,9 +338,12 @@ class F1TenthReal(embodied.Env):
                 -self._max_steering_angle,
                 self._max_steering_angle
             )
+            # Clamp linear_vel_x to 0 if below 0.5
+            linear_vel_x_raw = self._current_odom['linear_vel_x']
+            linear_vel_x_clamped = 0.0 if linear_vel_x_raw < 0.5 else linear_vel_x_raw
             obs = {
                 'scan': self._current_scan.copy(),
-                'linear_vel_x': self._current_odom['linear_vel_x'],
+                'linear_vel_x': np.float32(linear_vel_x_clamped),
                 'ang_vel_z': self._current_odom['ang_vel_z'],
                 'delta': np.float32(delta_clipped),
             }

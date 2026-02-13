@@ -130,11 +130,14 @@ class OriginalObservation(Observation):
                 0.0 if len(agent.state) < 7 else agent.state[yaw_ratei]
             )  # set 0.0 when KST Model
 
+            # Clamp linear_vel_x to 0 if below 0.5
+            vx_clamped = 0.0 if vx < 0.5 else vx
+
             observations["scans"].append(agent_scan)
             observations["poses_x"].append(x)
             observations["poses_y"].append(y)
             observations["poses_theta"].append(theta)
-            observations["linear_vels_x"].append(vx)
+            observations["linear_vels_x"].append(vx_clamped)
             observations["linear_vels_y"].append(vy)
             observations["ang_vels_z"].append(angvel)
             observations["collisions"].append(collision)
@@ -234,13 +237,16 @@ class FeaturesObservation(Observation):
                 0.0 if len(agent.state) < 7 else agent.state[yaw_ratei]
             )  # set 0.0 when KST Model
 
+            # Clamp linear_vel_x to 0 if below 0.5
+            vx_clamped = 0.0 if vx < 0.5 else vx
+
             # create agent's observation dict
             agent_obs = {
                 "scan": scan,
                 "pose_x": x,
                 "pose_y": y,
                 "pose_theta": theta,
-                "linear_vel_x": vx,
+                "linear_vel_x": vx_clamped,
                 "linear_vel_y": vy,
                 "ang_vel_z": angvel,
                 "delta": delta,
