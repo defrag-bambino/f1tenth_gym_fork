@@ -116,6 +116,7 @@ COPY f1tenth_gym /f1tenth_gym/f1tenth_gym
 COPY f1tenth.py /f1tenth_gym/f1tenth.py
 COPY f1tenth_real.py /f1tenth_gym/f1tenth_real.py
 COPY train_dreamerv3.py /f1tenth_gym/train_dreamerv3.py
+COPY finetune_dreamerv3_real.py /f1tenth_gym/finetune_dreamerv3_real.py
 COPY evaluate_dreamerv3.py /f1tenth_gym/evaluate_dreamerv3.py
 COPY test_ros2_connection.py /f1tenth_gym/test_ros2_connection.py
 
@@ -170,4 +171,4 @@ exec "$@"\n\
 ENTRYPOINT ["/entrypoint.sh"]
 
 # Default command shows usage
-CMD ["bash", "-c", "echo '' && echo 'Usage Examples:' && echo '' && echo '  Test ROS2 connection:' && echo '    python3 test_ros2_connection.py' && echo '' && echo '  Training on real car:' && echo '    python3 train_dreamerv3.py --real --max_speed 3.0 --from_checkpoint /checkpoints/ckpt' && echo '' && echo '  Evaluation on real car:' && echo '    python3 evaluate_dreamerv3.py /checkpoints/ckpt --real --max_speed 3.0 --episodes 5' && echo '' && echo '  Inference:' && echo '    ros2 launch f1tenth_onnx_inference inference.launch.py model_path:=/models/model.onnx' && echo '' && echo '  Interactive:' && echo '    bash' && echo ''"]
+CMD ["bash", "-c", "echo '' && echo 'Usage Examples:' && echo '' && echo '  Test ROS2 connection:' && echo '    python3 test_ros2_connection.py' && echo '' && echo '  Training on real car:' && echo '    python3 train_dreamerv3.py --real --max_speed 3.0 --from_checkpoint /checkpoints/ckpt' && echo '' && echo '  Fine-tuning on real car (OOD detection):' && echo '    python3 finetune_dreamerv3_real.py --checkpoint /checkpoints/ckpt --max_speed 3.0' && echo '' && echo '  Evaluation on real car:' && echo '    python3 evaluate_dreamerv3.py /checkpoints/ckpt --real --max_speed 3.0 --episodes 5' && echo '' && echo '  Inference:' && echo '    ros2 launch f1tenth_onnx_inference inference.launch.py model_path:=/models/model.onnx' && echo '' && echo '  Interactive:' && echo '    bash' && echo ''"]

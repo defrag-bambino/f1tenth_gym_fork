@@ -402,7 +402,7 @@ class F1TenthReal(embodied.Env):
                         distance_penalty = self._collision_penalty * normalized_distance
                         velocity_reward *= distance_penalty
         
-        print("total reward: ", velocity_reward)
+        #print("total reward: ", velocity_reward)
         return velocity_reward
 
     @functools.cached_property
